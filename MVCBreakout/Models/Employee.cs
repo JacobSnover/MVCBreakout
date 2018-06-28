@@ -18,19 +18,18 @@ namespace MVCBreakout.Models
         public Employee()
         {
             this.Positions = new HashSet<Position>();
-            this.Positions1 = new HashSet<Position>();
+            this.Courses = new HashSet<Course>();
         }
     
         public int EmpID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int PositionID { get; set; }
         public string Email { get; set; }
+        public int PositionID { get; set; }
     
-        public virtual Position Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Position> Positions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Position> Positions1 { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

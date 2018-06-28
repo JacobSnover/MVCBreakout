@@ -18,19 +18,14 @@ namespace MVCBreakout.Models
         public Course()
         {
             this.Students = new HashSet<Student>();
-            this.Students1 = new HashSet<Student>();
         }
     
         public int CourseID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> PositionID { get; set; }
-        public Nullable<int> StudentID { get; set; }
+        public string CourName { get; set; }
+        public Nullable<int> EmpID { get; set; }
     
-        public virtual Position Position { get; set; }
-        public virtual Student Student { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students1 { get; set; }
     }
 }

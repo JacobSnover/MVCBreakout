@@ -4,20 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="39287276edcb468e8806df4a9c4be925" Name="Diagram1">
-        <EntityTypeShape EntityType="LearnerModel.Course" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LearnerModel.Employee" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LearnerModel.Position" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LearnerModel.Student" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LearnerModel.sysdiagram" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <AssociationConnector Association="LearnerModel.FK_Course_Position" ManuallyRouted="false" />
-        <AssociationConnector Association="LearnerModel.FK_Course_Student" ManuallyRouted="false" />
-        <AssociationConnector Association="LearnerModel.FK_Student_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="LearnerModel.FK_Employee_Position1" ManuallyRouted="false" />
-        <AssociationConnector Association="LearnerModel.FK_Position_Employee" ManuallyRouted="false" />
+      <Diagram DiagramId="9ff22e6b13224cd3b2cf0fd3ae6181d8" Name="Diagram1">
+        <EntityTypeShape EntityType="LearnerModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="LearnerModel.Employee" Width="1.5" PointX="3.375" PointY="0.875" />
+        <EntityTypeShape EntityType="LearnerModel.Position" Width="1.5" PointX="5.625" PointY="1" />
+        <EntityTypeShape EntityType="LearnerModel.Student" Width="1.5" PointX="10.125" PointY="0.875" />
         <AssociationConnector Association="LearnerModel.EmpPos" />
+        <EntityTypeShape EntityType="LearnerModel.Course" Width="1.5" PointX="5.625" PointY="4.125" />
+        <AssociationConnector Association="LearnerModel.FK_Course_Employee" />
         <AssociationConnector Association="LearnerModel.StuCour" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

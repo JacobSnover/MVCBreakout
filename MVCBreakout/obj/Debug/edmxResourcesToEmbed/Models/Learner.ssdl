@@ -5,9 +5,8 @@
       <PropertyRef Name="CourseID" />
     </Key>
     <Property Name="CourseID" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PositionID" Type="int" />
-    <Property Name="StudentID" Type="int" />
+    <Property Name="CourName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmpID" Type="int" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -16,16 +15,35 @@
     <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PositionID" Type="int" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PositionID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Learner.dbo.EmpPos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmpPos">
+    <Key>
+      <PropertyRef Name="PositionID" />
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="PositionID" Type="int" Nullable="false" />
+    <Property Name="EmpID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Position">
     <Key>
       <PropertyRef Name="PositionID" />
     </Key>
     <Property Name="PositionID" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="EmpId" Type="int" />
+    <Property Name="PosName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Learner.dbo.StuCour' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="StuCour">
+    <Key>
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="StudentID" Type="int" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -34,7 +52,6 @@
     <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="CourseID" Type="int" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
@@ -47,63 +64,63 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <Association Name="FK_Course_Position">
-    <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
-    <End Role="Course" Type="Self.Course" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Position">
-        <PropertyRef Name="PositionID" />
-      </Principal>
-      <Dependent Role="Course">
-        <PropertyRef Name="PositionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Course_Student">
-    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
-    <End Role="Course" Type="Self.Course" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="StudentID" />
-      </Principal>
-      <Dependent Role="Course">
-        <PropertyRef Name="StudentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Employee_Position1">
-    <End Role="Position" Type="Self.Position" Multiplicity="1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Position">
-        <PropertyRef Name="PositionID" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="PositionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Position_Employee">
+  <Association Name="FK_Course_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="Position" Type="Self.Position" Multiplicity="*" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Employee">
         <PropertyRef Name="EmpID" />
       </Principal>
-      <Dependent Role="Position">
-        <PropertyRef Name="EmpId" />
+      <Dependent Role="Course">
+        <PropertyRef Name="EmpID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Student_Course">
+  <Association Name="FK_EmpPos_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmpPos" Type="Self.EmpPos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="EmpPos">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpPos_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="1" />
+    <End Role="EmpPos" Type="Self.EmpPos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionID" />
+      </Principal>
+      <Dependent Role="EmpPos">
+        <PropertyRef Name="PositionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StuCour_Course">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
-    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <End Role="StuCour" Type="Self.StuCour" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Course">
         <PropertyRef Name="CourseID" />
       </Principal>
-      <Dependent Role="Student">
+      <Dependent Role="StuCour">
         <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StuCour_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StuCour" Type="Self.StuCour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="StuCour">
+        <PropertyRef Name="StudentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -113,25 +130,37 @@
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Course_Position" Association="Self.FK_Course_Position">
-      <End Role="Position" EntitySet="Position" />
-      <End Role="Course" EntitySet="Course" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Course_Student" Association="Self.FK_Course_Student">
-      <End Role="Student" EntitySet="Student" />
-      <End Role="Course" EntitySet="Course" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Employee_Position1" Association="Self.FK_Employee_Position1">
-      <End Role="Position" EntitySet="Position" />
+    <EntitySet Name="EmpPos" EntityType="Self.EmpPos" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EmpPos].[PositionID] AS [PositionID], 
+    [EmpPos].[EmpID] AS [EmpID]
+    FROM [dbo].[EmpPos] AS [EmpPos]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="StuCour" EntityType="Self.StuCour" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [StuCour].[StudentID] AS [StudentID], 
+    [StuCour].[CourseID] AS [CourseID]
+    FROM [dbo].[StuCour] AS [StuCour]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Course_Employee" Association="Self.FK_Course_Employee">
       <End Role="Employee" EntitySet="Employee" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Position_Employee" Association="Self.FK_Position_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="Position" EntitySet="Position" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Student_Course" Association="Self.FK_Student_Course">
       <End Role="Course" EntitySet="Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpPos_Employee" Association="Self.FK_EmpPos_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmpPos" EntitySet="EmpPos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpPos_Position" Association="Self.FK_EmpPos_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="EmpPos" EntitySet="EmpPos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StuCour_Course" Association="Self.FK_StuCour_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="StuCour" EntitySet="StuCour" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StuCour_Student" Association="Self.FK_StuCour_Student">
       <End Role="Student" EntitySet="Student" />
+      <End Role="StuCour" EntitySet="StuCour" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

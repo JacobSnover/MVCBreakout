@@ -17,6 +17,7 @@
 
 <div id="formDiv"></div>
 
+<div id="verify"></div>
 
 <h2>@ViewBag.VerifyAdd</h2>
 
@@ -24,19 +25,19 @@
     function formMaker(choice) {
         if (choice == 1) {
             $("#EmpForm").remove();
-            $("#formDiv").append('<form action="/Home/AddEmp" method="post" id="EmpForm">First Name:<br><input type="text" name="FirstName"><br>Last Name:<br><input type="text" name="LastName"><br>Position:<br><input type="number" name="PositionID"><br>Email:<br><input type="text" name="Email"><br><input type="submit" value="Add"></form>');
+            $("#formDiv").append('<form action="/Home/AddEmp" method="post" id="EmpForm">First Name:<br><input type="text" name="FirstName"><br>Last Name: <br><input type="text" name="LastName"><br>Email:<br><input type="text" name="Email"><br>Position:<br><input type="text" name="PositionID"><br><input type="submit" value="Add"></form>');
         }
         else if (choice == 2) {
             $("#EmpForm").remove();
-            $("#formDiv").append('<form action="/Home/AddPos" method="post" id="EmpForm">Position ID:<br><input type="number" name="PositionID"><br>Position Name:<br><input type="text" name="Name"><br>EmployeeID:<br><input type="text" name="EmpID"><br><input type="submit" value="Add"></form>');
+            $("#formDiv").append('<form action="/Home/AddPos" method="post" id="EmpForm">Position ID:<br><input type="number" name="PositionID"><br>Position Name: <br><input type="text" name="PosName"><br><input type="submit" value="Add"></form>');
         }
         else if (choice == 3) {
             $("#EmpForm").remove();
-            $("#formDiv").append('<form action="/Home/AddCour" method="post" id="EmpForm">CourseID:<br><input type="number" name="CourseID"><br>Name:<br><input type="text" name="Name"><br>PositionID:<br><input type="number" name="PositionID"><br>StudentID:<br><input type="number" name="StudentID"><br><input type="submit" value="Add"></form>');
+            $("#formDiv").append('<form action="/Home/AddCour" method="post" id="EmpForm">CourseID:<br><input type="number" name="CourseID"><br>Name: <br><input type="text" name="CourName"><br><input type="submit" value="Add"></form>');
         }
         else if (choice == 4) {
             $("#EmpForm").remove();
-            $("#formDiv").append('<form action="/Home/AddStudent" method="post"id= "EmpForm" > StudentID:<br><input type="number" name="StudentID"><br>FirstName:<br><input type="text" name="FirstName"><br>LastName:<br><input type="text" name="LastName"><br>CourseID:<br><input type="number" name="CourseID"><br>PositionID:<br><input type="number" name="PositionID"><br>Email:<br><input type="text" name="Email"><br><input type="submit" value="Add"></form>');
+            $("#formDiv").append('<form action="/Home/AddStudent" method="post" id="EmpForm" >FirstName: <br><input type="text" name="FirstName"><br>LastName:<br><input type="text" name="LastName"><br>Email:<br><input type="text" name="Email"><br><input type="submit" value="Add"></form>');
         }
         else {
             $("#formDiv").append("Hello");
@@ -44,28 +45,20 @@
 
     }
 </script>
-@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        $("#searchButton").click(function () {
+        $("#EmpForm").on("submit", function () {
+            var $this = $(this);
+            var frmValues = $this.serialize();
             $.ajax({
                 type: "POST",
-                url: "/Home/GetCustomersByCity",
-                data: '{city: "' + $("#cityText").val() + '" }',
+                url: "/Home/About",
+                data: '{data: "' + frmValues + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {
-                    $("#customertable").html("");
-                    for (var i = 0; i < response.length; i++) {
-                        var Customer = response[i];
-                        var tr = "<tr>";
-                        var td1 = ("<td>" + Customer.CustomerID + "</td>");
-                        var td2 = ("<td>" + Customer.City + "</td>");
-                        $("#customertable").append(tr + td1 + td2 + "</tr>");
-
-
-                    }
-
+                success: function () {
+                    console.log("Success");  
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -77,4 +70,4 @@
 
         });
     });
-</script>*@
+</script>
